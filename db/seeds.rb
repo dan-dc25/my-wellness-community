@@ -5,3 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+user = User.create(username: "russoitgoes", password: "password", password_confirmation: "password")
+
+post = Post.create(title: "My title", content: "My post content", user: user)
+
+recipe = Recipe.create(name: "smoothie", ingredients: "frosen banana, strawberry, protein, almond milk", cook_time: "2 minutes", user: user)
+
+category = Category.create(name: "sweets", recipe: recipe)
