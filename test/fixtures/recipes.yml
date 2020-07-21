@@ -5,11 +5,9 @@ one:
   ingredients: MyString
   instructions: MyText
   cook_time: MyString
-  user: one
 
 two:
   name: MyString
   ingredients: MyString
   instructions: MyText
   cook_time: MyString
-  user: two

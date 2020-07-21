@@ -10,43 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_17_032859) do
-
-  create_table "categories", force: :cascade do |t|
-    t.string "name"
-    t.integer "recipe_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["recipe_id"], name: "index_categories_on_recipe_id"
-  end
+ActiveRecord::Schema.define(version: 2020_07_21_012242) do
 
   create_table "comments", force: :cascade do |t|
     t.string "content"
-    t.integer "user_id", null: false
-    t.integer "post_id", null: false
+    t.integer "user_id"
+    t.integer "post_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["post_id"], name: "index_comments_on_post_id"
-    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "cookbooks", force: :cascade do |t|
     t.string "name"
-    t.integer "user_id", null: false
-    t.integer "recipe_id", null: false
+    t.integer "user_id"
+    t.integer "recipe_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["recipe_id"], name: "index_cookbooks_on_recipe_id"
-    t.index ["user_id"], name: "index_cookbooks_on_user_id"
   end
 
   create_table "posts", force: :cascade do |t|
     t.string "title"
     t.text "content"
-    t.integer "user_id", null: false
+    t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "recipes", force: :cascade do |t|
@@ -54,24 +41,17 @@ ActiveRecord::Schema.define(version: 2020_07_17_032859) do
     t.string "ingredients"
     t.text "instructions"
     t.string "cook_time"
-    t.integer "user_id", null: false
+    t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_recipes_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.string "username"
+    t.string "email"
     t.string "password_digest"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "categories", "recipes"
-  add_foreign_key "comments", "posts"
-  add_foreign_key "comments", "users"
-  add_foreign_key "cookbooks", "recipes"
-  add_foreign_key "cookbooks", "users"
-  add_foreign_key "posts", "users"
-  add_foreign_key "recipes", "users"
 end

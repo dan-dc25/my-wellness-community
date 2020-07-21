@@ -5,10 +5,15 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-user = User.create(username: "russoitgoes", password: "password", password_confirmation: "password")
+User.destroy_all
+Post.destroy_all
+Recipe.destroy_all
+Category.destroy_all
 
-post = Post.create(title: "My title", content: "My post content", user: user)
+user = User.create(username: "russoitgoes", password: "password", email: "russo@test.com")
 
-recipe = Recipe.create(name: "smoothie", ingredients: "frosen banana, strawberry, protein, almond milk", cook_time: "2 minutes", user: user)
+post = Post.create(title: "My title", content: "My post content")
+
+recipe = Recipe.create(name: "smoothie", ingredients: "frosen banana, strawberry, protein, almond milk", cook_time: "2 minutes")
 
 category = Category.create(name: "sweets", recipe: recipe)

@@ -5,7 +5,8 @@ class CreateRecipes < ActiveRecord::Migration[6.0]
       t.string :ingredients
       t.text :instructions
       t.string :cook_time
-      t.belongs_to :user, null: false, foreign_key: true
+      t.integer :user_id
+      
 
       t.timestamps
     end

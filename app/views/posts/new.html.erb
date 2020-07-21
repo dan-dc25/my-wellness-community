@@ -1,0 +1,12 @@
+<h1>Welcome <%= current_user.username%></h1>
+<h2>Fill out information about your post</h2>
+<%= form_for(@post) do |f| %>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+
+    <%= f.label :content %>
+    <%= f.text_area :content %>
+
+    <%= f.submit "Create Post" %>
+<% end %>
+

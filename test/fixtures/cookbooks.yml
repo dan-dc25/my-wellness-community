@@ -2,10 +2,6 @@
 
 one:
   name: MyString
-  user: one
-  recipe: one
 
 two:
   name: MyString
-  user: two
-  recipe: two
