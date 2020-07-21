@@ -13,12 +13,16 @@ class UsersController < ApplicationController
             session[:user_id] = @user.id
             redirect_to '/'
         else
+            flash[:errors] = @user.errors.full_messages
             render :new
         end
     end
 
     def show
         @user = User.find(params[:id])
+        @post = @user.posts.reverse
+        @recipe = @user.recipes.reverse
+        @comment = @user.comments.reverse
     end
 
     private
