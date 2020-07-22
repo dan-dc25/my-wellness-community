@@ -1,2 +1,3 @@
 <h1> Newly created post</h1>
-<%= @post.title %>
+<% if @post.valid? %>
+    <%= @user.posts %>

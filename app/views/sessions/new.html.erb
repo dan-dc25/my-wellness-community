@@ -1,11 +1,5 @@
 <h1>Log In</h1>
-<% if !!flash[:errors] %>
-<ul>
-<%= flash[:errors].each do |error| %>
-    <li><%= error %></li>
-<% end %>
-</ul>
-<% end %>
+
 <%= form_for(@user) do |f| %>
     <div class="field">
         <%= f.label :username %>
