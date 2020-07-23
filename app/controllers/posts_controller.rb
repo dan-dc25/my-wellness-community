@@ -1,19 +1,12 @@
 class PostsController < ApplicationController
-  
+  before_action :require_login
+
     def index
-        if params[:user_id]
-            @posts = User.find(params[:user_id]).posts
-        else
-            @posts = Post.all
-        end
+       @posts = current_user.posts.all
     end
 
     def new
-        if params[:user_id] && !User.exists?(params[:user_id])
-            redirect_to posts_path
-        else
-            @post = Post.new(user_id: params[:user_id])
-        end
+        @post = Post.new(user_id: params[:user_id])
     end
    
     def create
@@ -22,10 +15,10 @@ class PostsController < ApplicationController
         if @post.valid?
             @post.save
             current_user.posts << @post
-            redirect_to user_post_path(:user_id, :post_id)
+            redirect_to user_post_path(@post.user_id, current_user.id)
         else
             flash[:errors] = @post.errors.full_messages
-            redirect_to new_user_post_path(:user_id, :post_id)
+            render :new
         end
     end
 
@@ -34,9 +27,21 @@ class PostsController < ApplicationController
        if @post
         @user = User.find(@post.user_id)
        else
-        redirect_to user_posts_path(:user_id, :post_id)
+        redirect_to user_post_path(@post.user_id, current_user.id)
        end
     end
+
+    def edit
+        @post = Post.find(params[:id])
+    end
+
+    def update
+        @post = Post.find(params[:id])
+        @post.update(post_params)
+        redirect_to post_path(@post)
+      end
+
+
 
     private
     def post_params

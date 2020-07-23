@@ -2,12 +2,13 @@ Rails.application.routes.draw do
   root 'application#home'
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
+ 
   get '/signup' => 'users#new'
   post '/signup' => 'users#create'
 
   resources :users  
   resources :users do
-    resources :posts
+    resources :posts, only: [:show, :index, :new, :edit]
     resources :recipes
   end
   resources :posts

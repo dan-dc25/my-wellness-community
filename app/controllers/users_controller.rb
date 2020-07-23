@@ -1,7 +1,5 @@
 class UsersController < ApplicationController
-    def index
-        @users = User.find_by(params[:id])
-    end
+   
 
     def new
         @user = User.new
@@ -11,18 +9,17 @@ class UsersController < ApplicationController
         @user = User.new(user_params)
         if @user.save
             session[:user_id] = @user.id
-            redirect_to '/'
+            redirect_to user_path(@user)
         else
-            flash[:errors] = @user.errors.full_messages
             render :new
         end
     end
 
     def show
-        @user = User.find(params[:id])
-        @post = @user.posts.reverse
-        @recipe = @user.recipes.reverse
-        @comment = @user.comments.reverse
+        @user = User.find_by(id: params[:id])
+        @posts = Post.all.select { |p| p.user_id == current_user.id}
+        @recipes = Recipe.all.select { |r| r.user_id == current_user.id}
+        @comment = current_user.comments.reverse
     end
 
     private

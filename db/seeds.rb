@@ -12,8 +12,6 @@ Category.destroy_all
 
 user = User.create(username: "russoitgoes", password: "password", email: "russo@test.com")
 
-post = Post.create(title: "My title", content: "My post content")
+post = Post.create(title: "My title", content: "My post content", user: user)
 
-recipe = Recipe.create(name: "smoothie", ingredients: "frosen banana, strawberry, protein, almond milk", cook_time: "2 minutes")
-
-category = Category.create(name: "sweets", recipe: recipe)
+recipe = Recipe.create(name: "smoothie", ingredients: "frosen banana, strawberry, protein, almond milk", cook_time: "2 minutes", user: user)

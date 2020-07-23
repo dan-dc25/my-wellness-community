@@ -2,9 +2,6 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
   helper_method :logged_in?
 
-  def welcome 
-  end
-
   def home
     @user = User.find_or_create_by(params[:id])
   end
@@ -14,13 +11,11 @@ class ApplicationController < ActionController::Base
   end
 
   def logged_in?
-    !current_user.nil?
+    !!session[:user_id]
   end
   
   def require_login
-    unless logged_in?
-      redirect "/login"
-    end
+    return head(:forbidden) unless session.include? :user_id
   end
 
 end
