@@ -1,6 +1,6 @@
 
 
-<h1> Welcome <%= current_user.username %></h1>
+<h1> Welcome <%= @user.username %></h1>
 
 <ul>
 <li><a href="application/home">Home</a></li>
@@ -9,16 +9,13 @@
 </ul>
 
 
-<%= link_to "New Post", new_user_post_path(current_user.id) %>
-
-
 
 <p>Posts:</p>
-<%= current_user.posts.each do |post| %>
-    <li><a href="posts/show"><%= post.title %></a></li>
+<%= @user.posts.each do |post| %>
+    <li><%= link_to post.title, post_path(post) %></li>
 <% end %>
 
-
+<span><%= link_to "New Post", new_user_post_path(current_user.id) %></span>
 
 
 
