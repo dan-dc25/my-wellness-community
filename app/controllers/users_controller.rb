@@ -4,6 +4,10 @@ class UsersController < ApplicationController
        @user = User.new
     end
 
+    #def posts
+     #   @user = User.find(params[:id])
+      #  @posts = @user.posts
+    #end
 
     def create
         @user = User.new(user_params)
@@ -16,9 +20,9 @@ class UsersController < ApplicationController
     end
 
     def show
-        @user = User.find_by(id: session[:user_id])
-        @posts = Post.all.select { |p| p.user_id == current_user.id}
-        @recipes = Recipe.all.select { |r| r.user_id == current_user.id}
+        @user = User.find(params[:id])
+        @posts = @user.posts
+        @recipes = @user.recipes
         @comment = current_user.comments.reverse
     end
 

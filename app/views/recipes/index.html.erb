@@ -1,0 +1,7 @@
+<h1>List of all recipes</h1>by<%= @user.username %>
+
+<% @recipes.each do |r| %>
+    <ul>
+    <li><%= link_to r.name, user_recipe_path(user_id, recipe_id) %></li>
+    </ul>
+<% end %>

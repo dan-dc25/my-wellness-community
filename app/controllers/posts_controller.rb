@@ -7,36 +7,39 @@ class PostsController < ApplicationController
             @posts = Post.all
         else                    #else display the posts associated with the user
           #binding.pry
-            @user = User.find_by(id: params[:user_id])
-            @posts = @user.posts.all
+            @user = User.find(params[:id])
+            @posts = @user.posts
         end
     end
 
     #GET /posts/id
     def show
         if params[:user_id]
-         @user = User.find_by(id: params[:user_id])
-    
+            @user = User.find(params[:id])
+            @post = Post.find(params[:user_id])
         else
-         redirect_to user_posts_path(@post.id) #can't get this route to work. undefined method id for nil class(@user) or user_id for @post
+         redirect_to user_posts_path(user_id) #can't get this route to work. undefined method id for nil class(@user) or user_id for @post
         end
      end
 
      #GET /posts/new
     def new
-       @user = User.find(params[:user_id])
-       @post = @user.posts.build
+       if params[:user_id] && !User.exists?(params[:user_id])
+        redirect_to users_path, alert: "User not found"
+       else
+        @post = Post.new(user_id: params[:user_id])
+       end
     end
     
    #POST /posts/new
     def create
         @post = Post.new(post_params)
-        @post.user_id =  current_user.id
+        @post.user_id =  @user.id
         
         if @post.valid?
             @post.save
             current_user.posts << @post
-            redirect_to user_post_path(@post.user_id, current_user.id)
+            redirect_to user_post_path()
         else
             flash[:errors] = @post.errors.full_messages
             render :new
@@ -51,10 +54,18 @@ class PostsController < ApplicationController
 
     def update
         @post = Post.find(params[:id])
-        @post.update(post_params)
-        redirect_to post_path(@post)
+        if @post.update(post_params)
+            redirect_to post_path(@post)
+        else
+            render :edit
+        end
       end
 
+    def destroy
+        @post = Post.find(params[:id])
+        @post.destroy
+        redirect_to user_posts_path(@post.user_id)
+    end
 
 
     private

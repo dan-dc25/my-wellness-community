@@ -1,0 +1,7 @@
+<h1>Your newly created recipe</h1>
+
+<%= link_to "Recipes", user_recipes_path(user_id) %>
+<%= link_to "Edit Recipe", edit_user_recipe_path(user_id, recipe_id) %>
+<%= @user.recipe.last %>
+<%
+By:<%= @user.username %>
