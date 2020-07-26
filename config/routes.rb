@@ -3,12 +3,14 @@ Rails.application.routes.draw do
  
   resources :users, only: [:show]
 
+  resources :recipes
+  resources :comments
+  resources :cookbooks
+
   resources :posts do
     resources :comments
   end
 
-  resources :comments
-  resources :cookbooks
   
   devise_for :users, controllers: {registrations: "registrations", omniauth_callbacks: "callbacks"}
   devise_scope :user do 

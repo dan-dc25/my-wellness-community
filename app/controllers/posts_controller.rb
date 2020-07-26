@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-
+    before_action :authenticate_user!
 
     #GET /posts
     def index
@@ -46,6 +46,7 @@ class PostsController < ApplicationController
                 @post = user.posts.find_by(id: params[:id])
                 redirect_to posts_path(user)
             end
+        end
     end
 
     def update

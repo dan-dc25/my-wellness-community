@@ -1,10 +1,7 @@
 class RecipesController < ApplicationController
     def index
-        if !params[:user_id]
-            @recipes = Recipe.all
-        else
-            @recipes = @user.recipes
-        end
+       @user = User.find_by(id: params[:user_id])
+       @recipes = @user.recipes
     end
 
     def show

@@ -1,21 +1,81 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>MyWellnessCommunity</title>
+    <title>My Wellness Community</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
   </head>
 
   <body>
-  <% if notice %>
-  <p class="alert alert-success"><%= notice %></p>
-<% end %>
-<% if alert %>
-  <p class="alert alert-danger"><%= alert %></p>
-<% end %>
-    <%= yield %>
-  </body>
+
+  <header>
+  <br>
+  <nav class="level">
+      <% if user_signed_in? %>
+
+      <div class="level-right"
+        <p class="level-item">
+        <a class="navbar-item"><%= link_to "About", root_path %></a>
+        </p>
+        <p class="level-item">
+        <a class="navbar-item"><%= link_to "All Posts", posts_path %></a>
+        </p>
+        <p class="level-item">
+        <a class="navbar-item"><%= link_to "All Recipes", recipes_path %></a>
+        </p>
+        <p class="level-item">
+        <a class="navbar-item"><%= link_to "New Post", new_post_path %></a>
+        </p>
+        <p class="level-item">
+        <a class="navbar-item"><%= link_to "Log Out", logout_path %></a>
+        </p>
+        <p>  
+                  
+        </p>
+      </div>
+
+      <% else %>
+      <div class="level-left"> 
+        <p class="level-item">
+        <a class="navbar-item"><%= link_to "Sign Up", signup_path %></a>
+        </p>
+        <p class="level-item">
+        <a class="navbar-item"><%= link_to "Log In", login_path %></a>
+        </p>
+      </div>
+      <% end %>
+  </nav>
+  </header>
+
+
+
+  <section class="section">
+    <div class="content">
+
+
+        <div class="content has-text-centered">
+          <p class="notice"><%= notice %></p>
+          <p class="alert"><%= alert %></p>
+        </div>
+
+
+      <%= yield %>
+
+    </div>
+  </section>
+
+  <footer class="footer">
+  <div class="content has-text-centered">
+    <p>
+      <strong>My Wellness Community</strong> by <a href="https://www.linkedin.com/in/daniel-carvalho-98a40859/">Daniel Carvalho</a> &copy; 2020
+    </p>
+  </div>
+</footer>
+</body>
+  
 </html>
