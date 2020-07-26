@@ -3,8 +3,13 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.1'
 
+gem 'devise'
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'omniauth-github'
+gem 'dotenv-rails'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0.3', '>= 6.0.3.1'
+gem 'rails', '~> 6.0.3', '>= 6.0.3.2'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', '~> 1.4'
 # Use Puma as the app server
@@ -24,6 +29,8 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'pry'
 gem 'bootstrap', '~> 4.0'
 gem 'jquery-rails'
+
+
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'

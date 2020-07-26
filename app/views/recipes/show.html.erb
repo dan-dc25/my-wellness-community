@@ -2,6 +2,6 @@
 
 <%= link_to "Recipes", user_recipes_path(user_id) %>
 <%= link_to "Edit Recipe", edit_user_recipe_path(user_id, recipe_id) %>
-<%= @user.recipe.last %>
+<%= @user.recipes.last.name %>
 <%
 By:<%= @user.username %>

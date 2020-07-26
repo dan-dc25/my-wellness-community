@@ -2,12 +2,11 @@
 
 <%= link_to "Posts", user_posts_path(@post.user) %>
 <%= link_to "Edit Post", edit_user_post_path(@post.id) %>
-<% @user.posts.each do |post| %>
-    <p>Title:</p>
-    <%= post.title %><br>
-    <p>Content:</p>
-    <%= post.content %><br>
-
-<% end %>
-<br> 
+<% @user.posts.last.title %>
+<br>
 By:<%= @user.username %>
+<br>
+<%= @user.posts.last.content %>
+   
+
+

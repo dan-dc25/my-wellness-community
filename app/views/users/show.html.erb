@@ -12,11 +12,13 @@
 
 <p>Posts:</p>
 <%= @user.posts.each do |post| %>
-    <li><%= link_to post.title, post_path(post) %></li>
+    <li><%= link_to post.title, user_post_path(post) %></li>
+<% end %>
+
+<p>Recipes:</p>
+<%= @user.recipes.each do |r| %>
+    <li><%= link_to r.name, user_recipe_path(r) %></li>
 <% end %>
 
 <span><%= link_to "New Post", new_user_post_path(current_user.id) %></span>
-
-
-
-
+<span><%= link_to "New Recipe", new_user_recipe_path(current_user.id) %></span>

@@ -1,23 +1,27 @@
 Rails.application.routes.draw do
   root 'application#home'
-  get '/login' => 'sessions#new'
-  post '/login' => 'sessions#create'
-  get '/logout' => 'sessions#destroy'
-  get '/signup' => 'users#new'
-  post '/signup' => 'users#create'
-  get '/user/:id' => 'users#show', as: 'user_path' 
+ 
+  resources :users, only: [:show]
 
-  resources :users  
-  resources :users, only: [:new, :show] do
-    resources :posts, only: [:show, :index, :new, :edit]
-    resources :recipes
+  resources :posts do
+    resources :comments
   end
-  resources :posts
-  resources :recipes
+
   resources :comments
   resources :cookbooks
   
-  
+  devise_for :users, controllers: {registrations: "registrations", omniauth_callbacks: "callbacks"}
+  devise_scope :user do 
+      get 'login', to: 'devise/sessions#new'
+  end
+
+  devise_scope :user do 
+    get 'logout', to: 'devise/sessions#destroy'
+  end
+
+  devise_scope :user do
+    get 'signup', to: 'devise/registrations#new'
+  end
   
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

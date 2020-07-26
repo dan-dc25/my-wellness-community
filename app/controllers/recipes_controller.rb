@@ -17,21 +17,18 @@ class RecipesController < ApplicationController
     end
 
     def new
-        if params[:user_id] && !User.exists?(params[:user_id])
-            redirect_to users_path, alert: "User not found"
-        else
-            @recipe = Recipe.new(user_id: params[:user_id])
-        end
+        @user = User.find_by(id: params[:id])
+        @recipe = @user.recipes.build(recipe_params)
     end
 
     def create
         @recipe = Recipe.new(recipe_params)
-        @recipe.user_id = @user.id
         if @recipe.valid?
             @recipe.save
             current_user.recipes << @recipe
-            redirect_to user_recipe_path(user_id, recipe_id)
+            redirect_to user_recipe_path(current_user.id)
         else
+            flash[:errors] = "Could not save recipe. Try again."
             render :new
         end
     end
