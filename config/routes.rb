@@ -5,7 +5,6 @@ Rails.application.routes.draw do
 
   resources :recipes
   resources :comments
-  resources :cookbooks
 
   resources :posts do
     resources :comments

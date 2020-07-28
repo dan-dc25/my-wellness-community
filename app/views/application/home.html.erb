@@ -1,46 +1,45 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>My Wellness Community</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<html lang="en">
+<head>
 
-    <section class="hero is-primary is-bold">
-    <div class="hero-body">
-        <div class="container">
-        <h1 class="title">Welcome to My Wellness Community</h1>
-        <h2 class="subtitle">A place for people focused on living a healthy lifestyle.</h2>
-        </div>
-    </div>
-</section>
-<br>
+  <title>My Wellness Community</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
 
-<div class="columns">
-  <div class="column">
-        <section class="content">
-        <div>
-        <br>
+<body>
+
+  <div class="container-fluid">
+    <section class="content">
+      <div>
+      <br>
         <p>
-        <strong>My Wellness Community</strong> is a place for people who are focused on living a healthy lifestyle. We can connect with one another and share recipes and post some of our ideas. 
+          <strong>My Wellness Community</strong> is a place for people who are focused on living a healthy lifestyle. We can connect with one another and share recipes and post some of our ideas. 
         </p>
         <p>
-        My Wellness Community App is a Rails web application created by Daniel Carvalho as a portfolio project in association with Flatiron School's Online Software Engineering Program.
+          My Wellness Community App is a Rails web application created by Daniel Carvalho as a portfolio project in association with Flatiron School's Online Software Engineering Program.
         </p>
-        </div>
-        </section>
+      </div>
+    </section>
 
-        <% if @posts && !@posts.empty? %>
-            <h3>Here's a list of all your posts:</h3>
-            <% @posts.each do |post| %>
-              <%= link_to post.title, post_path(post) %>
-            <% end %> 
-        <% end %>
+    <% if @posts && !@posts.empty? %>
+      <h3>Here's a list of all your posts:</h3>
+      <% @posts.each do |post| %>
+        <%= link_to post.title, post_path(post) %>
+      <% end %> 
+    <% end %>
 
-        <% if @recipes && @recipes.empty? %>
-            <h3>Here's a list of all your recipes:</h3>
-            <% @recipes.each do |r| %>
-              <%= link_to r.name, recipe_path(r) %>
-            <% end %> 
-        <% end %>
+    <% if @recipes && @recipes.empty? %>
+      <h3>Here's a list of all your recipes:</h3>
+      <% @recipes.each do |r| %>
+        <%= link_to r.name, recipe_path(r) %>
+      <% end %> 
+    <% end %>
 
   </div>
-</div>
+
+</body>
+</html>
