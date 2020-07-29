@@ -1,29 +1,40 @@
 class RecipesController < ApplicationController
+    before_action :authenticate_user!
     def index
-       @user = User.find_by(id: params[:user_id])
-       @recipes = @user.recipes
+        if !user_signed_in?
+            @recipes = Recipe.all.sort_by{ |h| h.name }
+         else
+             @user = current_user
+             @recipes = current_user.recipes
+             render :show
+         end
     end
 
     def show
-        @recipe = Recipe.find_by(id: params[:id])
-        if @recipe
-            @user = User.find(@recipe.user_id)
+        if params[:user_id]
+            @user = User.find(params[:id])
+            @recipe = Recipe.find(params[:id])
+            @name = Recipe.name
+            @ingredients = Recipe.ingredient
+            @instructions = Recipe.instruction
+            @cook_time = Recipe.cook_time
         else
-            redirect_to user_recipes_path(user_id)
+            redirect_to recipes_path
         end
     end
+       
 
     def new
-        @user = User.find_by(id: params[:id])
-        @recipe = @user.recipes.build(recipe_params)
+       @recipe = Recipe.new
     end
-
+   
     def create
         @recipe = Recipe.new(recipe_params)
+        @recipe.user_id = current_user.id
         if @recipe.valid?
             @recipe.save
             current_user.recipes << @recipe
-            redirect_to user_recipe_path(current_user.id)
+            redirect_to recipe_path(current_user.id)
         else
             flash[:errors] = "Could not save recipe. Try again."
             render :new
@@ -31,8 +42,7 @@ class RecipesController < ApplicationController
     end
 
     def edit
-        @user = User.find(params[:user_id])
-        @recipe = Recipe.find(params[:id])
+        @recipe = Recipe.find_by(id: params[:id])
     end
 
     def update

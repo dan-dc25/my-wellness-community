@@ -3,24 +3,30 @@ class PostsController < ApplicationController
 
     #GET /posts
     def index
-          #binding.pry
-          @posts = Post.all.sort_by{ |h| h.name }
+        if !user_signed_in?
+           @posts = Post.all.sort_by{ |h| h.name }
+        else
+            @user = current_user
+            @posts = current_user.posts
+            render :show
+        end
     end
 
     #GET /posts/id
     def show
         if params[:user_id]
             @user = User.find(params[:id])
-            @post = Post.find(params[:user_id])
+            @post = Post.find(params[:id])
+            @title = Post.title
+            @content = Post.content
         else
-         redirect_to user_posts_path(user_id) #can't get this route to work. undefined method id for nil class(@user) or user_id for @post
+         redirect_to posts_path #can't get this route to work. undefined method id for nil class(@user) or user_id for @post
         end
      end
 
      #GET /posts/new
     def new
-        @user = User.find_by(id: params[:id])
-        @post = @user.posts.build(post_params)
+        @post = Post.new
     end
     
    #POST /posts/new

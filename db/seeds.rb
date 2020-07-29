@@ -8,9 +8,8 @@
 User.destroy_all
 Post.destroy_all
 Recipe.destroy_all
-Category.destroy_all
 
-user = User.create(username: "russoitgoes", password: "password", email: "russo@test.com")
+user = User.create(name: "russoitgoes", password: "password", email: "russo@test.com")
 
 post = Post.create(title: "My title", content: "My post content", user: user)
 

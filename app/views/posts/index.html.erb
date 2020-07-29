@@ -1,9 +1,12 @@
 <h1><List of all posts</h1>
 
 
-  <% @posts.each do |p| %>
-    <ul>
-    <li><%= p.title %></li>
-    </ul>
+<% @posts.each do |p| %>
+  <ul>
+  <p>
+  <li><%= p.title %></li> | By: <%=link_to p.user.name, post_path(:id) %>
+  </p>
+  
+  </ul>
 <% end %>
 

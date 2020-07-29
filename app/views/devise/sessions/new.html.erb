@@ -1,6 +1,11 @@
-<h2>Log in</h2>
+<h2 class="heading text-4xl font-bold pt-4 mb-8">Log in</h2>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <div class="mb-6">
+    <%= f.label :login, class:"label" %>
+    <%= f.text_field :login, autofocus: true, class: "input" %>
+  </div>
+  
   <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
@@ -18,6 +23,8 @@
     </div>
   <% end %>
 
+  <%= link_to "Sign in with Facebook", user_facebook_omniauth_authorize_path %>
+  
   <div class="actions">
     <%= f.submit "Log in" %>
   </div>

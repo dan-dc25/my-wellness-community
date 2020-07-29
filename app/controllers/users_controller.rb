@@ -2,9 +2,9 @@ class UsersController < ApplicationController
 
    
     def show
-        @user = User.find_by(id: params[:user_id])
-        @posts = @user.posts.reverse
-        @recipes = @user.recipes
-        @comment = current_user.comments.reverse
+        @user = User.find_by(id: params[:id])
+        @posts = Post.all
+        @recipes = Recipe.all
+        @comment = Comment.all
     end
 end

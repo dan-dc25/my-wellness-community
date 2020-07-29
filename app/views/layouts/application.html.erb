@@ -14,35 +14,48 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     </head>
-  <body>
+
+  <body class="bg-white">
+
+    <% flash.each do |type, message| %>
+      <% if type == "alert" %>
+        <div class="bg-red-500">
+          <div class="container px-2 mx-auto py-4 text-white text-center font-medium font-sans"><%= message %></div>
+        </div>
+      <% end %>
+      <% if type == "notice" %>
+        <div class="bg-green-500">
+          <div class="container px-2 mx-auto py-4 text-white text-center font-medium font-sans"><%= message %></div>
+        </div>
+      <% end %>
+    <% end %>
 
   <header>
   <br>
-  <% if logged_in? %>
-      <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
+  <nav class="navbar navbar-inverse">
+    <% if user_signed_in? %>
+        <nav class="navbar navbar-inverse">  
           <ul class="nav navbar-nav">
-            <li class="active"><%= link_to "About", root_path %></li>
             <li><%= link_to "All Posts", posts_path %></li>
             <li><%= link_to "All Recipes", recipes_path %></li>
             <li><%= link_to "New Post", new_post_path %></li>
             <li><%= link_to "New Recipe", new_recipe_path %></li>
+            <li><%= link_to "Log out", destroy_user_session_path, method: :delete %></li>
+          </ul>
+        </nav>
+
+    <% else %>
+      <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
           <ul class="nav navbar-nav navbar-right">
-            <li><%= link_to "Log Out", logout_path %><span class="glyphicon glyphicon-log-out"></span></li>
+            <li><%= link_to "Login", login_path, class:"btn btn-default mb-2 lg:mr-2 lg:mb-0 block" %></li>
+            <li><%= link_to "Sign Up", signup_path, class:"btn btn-default block" %></li>
           </ul>
         </div>
       </nav>
+    <% end %>
+  </nav>
 
-  <% else %>
-    <nav class="navbar navbar-inverse">
-      <div class="container-fluid">
-        <ul class="nav navbar-nav navbar-right">
-          <li><%= link_to "Sign Up", signup_path %><span class="glyphicon glyphicon-user"></span></li>
-          <li><%= link_to "Log In", login_path %><span class="glyphicon glyphicon-log-in"></span></li>
-        </ul>
-      </div>
-    </nav>
-  <% end %>
 
   </header>
 
