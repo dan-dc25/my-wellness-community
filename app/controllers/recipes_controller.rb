@@ -1,12 +1,14 @@
 class RecipesController < ApplicationController
     before_action :authenticate_user!
     def index
+        if user_signed_in? && current_user.recipes.nil?
+            flash[:errors] = "It looks like you have not created any recipes yet. Click the New Recipe button on the menu bar to create a new recipe."
+        end
         if !user_signed_in?
             @recipes = Recipe.all.sort_by{ |h| h.name }
          else
              @user = current_user
              @recipes = current_user.recipes
-             render :show
          end
     end
 
@@ -19,7 +21,7 @@ class RecipesController < ApplicationController
             @instructions = Recipe.instruction
             @cook_time = Recipe.cook_time
         else
-            redirect_to recipes_path
+            redirect_to recipes_path(@recipe)
         end
     end
        

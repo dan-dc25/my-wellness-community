@@ -3,26 +3,8 @@ class PostsController < ApplicationController
 
     #GET /posts
     def index
-        if !user_signed_in?
-           @posts = Post.all.sort_by{ |h| h.name }
-        else
-            @user = current_user
-            @posts = current_user.posts
-            render :show
-        end
+        @posts = Post.all.sort_by{ |p| p.title}
     end
-
-    #GET /posts/id
-    def show
-        if params[:user_id]
-            @user = User.find(params[:id])
-            @post = Post.find(params[:id])
-            @title = Post.title
-            @content = Post.content
-        else
-         redirect_to posts_path #can't get this route to work. undefined method id for nil class(@user) or user_id for @post
-        end
-     end
 
      #GET /posts/new
     def new
@@ -42,6 +24,13 @@ class PostsController < ApplicationController
         end
     end
 
+     #GET /posts/id
+     def show
+            @user = User.find_by(id: params[:id])
+            @post = Post.find_by(id: params[:id])
+            #redirect_to post_path
+     end
+
     #GET /posts/id/edit
     def edit
         if params[:user_id]
@@ -50,7 +39,7 @@ class PostsController < ApplicationController
                 redirect_to user_path(@user)
             else
                 @post = user.posts.find_by(id: params[:id])
-                redirect_to posts_path(user)
+                redirect_to posts_path(@post)
             end
         end
     end
@@ -73,6 +62,6 @@ class PostsController < ApplicationController
 
     private
     def post_params
-        params.require(:post).permit(:title, :content, :user_id)
+        params.require(:post).permit(:title, :content)
     end
 end

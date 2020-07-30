@@ -1,14 +1,13 @@
 Rails.application.routes.draw do
   root 'application#home'
   resources :users, only: [:show]
+  resources :users do
+    resources :posts
+  end
   
   resources :recipes
   resources :comments
-
-  resources :posts do
-    resources :comments
-  end
-
+  resources :posts
 
   devise_for :users, controllers: {registrations: "registrations", omniauth_callbacks: "callbacks"}
   devise_scope :user do 

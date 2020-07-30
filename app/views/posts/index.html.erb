@@ -1,12 +1,21 @@
-<h1><List of all posts</h1>
 
 
-<% @posts.each do |p| %>
-  <ul>
-  <p>
-  <li><%= p.title %></li> | By: <%=link_to p.user.name, post_path(:id) %>
-  </p>
-  
-  </ul>
+<% unless !user_signed_in? %>
+
+<h2><%= current_user.name %>'s posts </h2>
+  <% @posts.each do |p| %>
+    <div class="post">
+        <ul>
+          <p>
+            <li><%= link_to p.title, post_path(current_user.posts) %></li> | By: <%= p.user.name %>
+          </p>
+        </ul>
+    </div>
+  <% end %>
+<% end %>
+
+
+<% if @posts.nil? %>
+      <h2>It looks like you have not created any posts yet. Please click the New Post on the menu bar.</h2>
 <% end %>
 
