@@ -1,1 +1,7 @@
+<h2>Edit Recipe : </h2>
+
 <%= render "form" %>
+
+<%= form_tag(recipe_path(@recipe), method: "delete") do %>
+    <input type="submit" value="Delete" class="button is-danger">
+<% end %>

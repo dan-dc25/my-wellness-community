@@ -1,56 +1,40 @@
 class RecipesController < ApplicationController
     before_action :authenticate_user!
     def index
-        if user_signed_in? && current_user.recipes.nil?
-            flash[:errors] = "It looks like you have not created any recipes yet. Click the New Recipe button on the menu bar to create a new recipe."
-        end
-        if !user_signed_in?
-            @recipes = Recipe.all.sort_by{ |h| h.name }
-         else
-             @user = current_user
-             @recipes = current_user.recipes
-         end
+        @recipes = Recipe.all.order("created_at DESC")
+        #@recipes = current_user.recipes.all
     end
-
-    def show
-        if params[:user_id]
-            @user = User.find(params[:id])
-            @recipe = Recipe.find(params[:id])
-            @name = Recipe.name
-            @ingredients = Recipe.ingredient
-            @instructions = Recipe.instruction
-            @cook_time = Recipe.cook_time
-        else
-            redirect_to recipes_path(@recipe)
-        end
-    end
-       
 
     def new
        @recipe = Recipe.new
     end
-   
+ 
     def create
         @recipe = Recipe.new(recipe_params)
         @recipe.user_id = current_user.id
         if @recipe.valid?
             @recipe.save
-            current_user.recipes << @recipe
-            redirect_to recipe_path(current_user.id)
+            redirect_to recipe_path(@recipe)
         else
             flash[:errors] = "Could not save recipe. Try again."
             render :new
         end
     end
 
-    def edit
+    def show
+        @user = User.find_by(id: params[:id])
         @recipe = Recipe.find_by(id: params[:id])
     end
-
+       
+    def edit
+        @recipe = Recipe.find(params[:id])
+    end
+   
     def update
         @recipe = Recipe.find(params[:id])
-        if @recipe.update(recipe_params)
-            redirect_to recipe_path(@recipe)
+        if @recipe.update_attributes(recipe_params)
+            redirect_to recipes_path(@recipe)
+            flash[:notice] = 'post was updated.'
         else
             render :edit
         end
@@ -59,7 +43,7 @@ class RecipesController < ApplicationController
     def destroy
         @recipe = Recipe.find(params[:id])
         @recipe.destroy
-        redirect_to user_recipes-path(user_id)
+        redirect_to recipes_path(@recipe)
     end
 
     private

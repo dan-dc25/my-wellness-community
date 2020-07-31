@@ -28,9 +28,9 @@ class PostsController < ApplicationController
 
      #GET /posts/id
      def show
-            @user = User.find_by(id: params[:id])
-            @post = Post.find_by(id: params[:id])
-            @comment = Comment.new
+        @user = User.find_by(id: params[:id])
+        @post = Post.find_by(id: params[:id])
+        @comment = Comment.new
             #redirect_to post_path
      end
 
@@ -51,6 +51,7 @@ class PostsController < ApplicationController
    
 
     def destroy
+        @post = Post.find(params[:id])
         @post.destroy
         redirect_to posts_path(@post)
     end
@@ -59,12 +60,5 @@ class PostsController < ApplicationController
     private
     def post_params
         params.require(:post).permit(:title, :content, :user_id)
-    end
-
-    def requireSameUser
-        if currentUser != @post.user
-          flash[:danger] = "You can only edit or delete your own items"
-          redirect_to root_path
-        end
     end
 end

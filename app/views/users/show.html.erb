@@ -1,4 +1,4 @@
-<h1><%= @user.name %></h1>
+<h1>Welcome <%= current_user.name %></h1>
 
 <% unless @posts.empty? %>
     <h3>Posts Published by <%= @user.name %>:</h3>
