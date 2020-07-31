@@ -3,12 +3,14 @@ class PostsController < ApplicationController
 
     #GET /posts
     def index
-        @posts = Post.all.sort_by{ |p| p.title}
+        @posts = Post.all.order("created_at DESC")
+        #@posts = current_user.posts.all
     end
 
      #GET /posts/new
     def new
         @post = Post.new
+        @comment = Comment.new(post_id: params[:post_id])
     end
     
    #POST /posts/new
@@ -28,40 +30,41 @@ class PostsController < ApplicationController
      def show
             @user = User.find_by(id: params[:id])
             @post = Post.find_by(id: params[:id])
+            @comment = Comment.new
             #redirect_to post_path
      end
 
     #GET /posts/id/edit
     def edit
-        if params[:user_id]
-            user = User.find_by(id: params[:user_id])
-            if user.nil?
-                redirect_to user_path(@user)
-            else
-                @post = user.posts.find_by(id: params[:id])
-                redirect_to posts_path(@post)
-            end
-        end
+        @post = Post.find(params[:id])
     end
 
     def update
-        @post.update(post_params)
-        if @post.save
-            redirect_to post_path(@post)
+        @post = Post.find(params[:id])
+        if @post.update_attributes(post_params)
+            redirect_to action: :index
+            flash[:notice] = 'post was updated.'
         else
-            render :edit
+            render 'edit'
         end
-      end
+    end    
+   
 
     def destroy
-        @post = Post.find(params[:id])
         @post.destroy
-        redirect_to user_posts_path(@post.user_id)
+        redirect_to posts_path(@post)
     end
 
 
     private
     def post_params
-        params.require(:post).permit(:title, :content)
+        params.require(:post).permit(:title, :content, :user_id)
+    end
+
+    def requireSameUser
+        if currentUser != @post.user
+          flash[:danger] = "You can only edit or delete your own items"
+          redirect_to root_path
+        end
     end
 end

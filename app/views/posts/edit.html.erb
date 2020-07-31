@@ -1,1 +1,7 @@
+
+
 <%= render 'form' %>
+
+<%= form_tag(post_path(@post), method: "delete") do %>
+    <input type="submit" value="Delete" class="button is-danger">
+<% end %>

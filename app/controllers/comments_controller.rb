@@ -1,27 +1,17 @@
 class CommentsController < ApplicationController
-    before_action :authenticate_user!
-    def new 
-        @comment = Comment.new
-    end
 
     def create
-        @comment = Comment.new(params[:content, :user_id, :post_id])
-        @comment.user = current_user
-        @comment.post_id = params[:post_id]
-        @comment.content = params[:content]
-        
-        if @comment.save
-            redirect_to post_path(@comment.post)
-        else
-            @comment.errors.full_messages.each {|msg| flash.notice = msg }
-            redirect_to post_path(@comment.post)
-        end
+        @post = Post.find_by(id: params[:post_id])
+        @comment = @post.comments.create(params[:comment].permit(:content))
+        redirect_to post_path(@post) 
     end
 
-    def show 
-        @comment = comment.find(params[:id])
+    def destroy
+        @post = Post.find(params[:post_id])
+        @comment = @post.comments.find(params[:id])
+        @comment.destroy
+        redirect_to post_path(@post)
     end
-
     
 
 end

@@ -1,29 +1,26 @@
-<h2><%= current_user.name %>'s post></h2>
+<h2>Welcome <%= current_user.name %></h2>
 
-<%= link_to "Posts", posts_path(@post) %>
-<%= link_to "Edit Post", edit_post_path(:id) %>
+<% if current_user %>
+    <strong><%= link_to "Edit Post", edit_post_path(@post.id) %></strong>
+    <br><br>
+<% end %>
 
-<%= @post.title %>
+<strong>Title: </strong><%= @post.title %><br><br>
 
-<h1>Add a comment</h1>
+<strong>Content: </strong><%= @post.content %>
 
+<section class="content">
+<h3>Leave a comment:</h3>
 <%= form_for(@comment) do |c| %>
-    <%= f.text_area :content %>
-    <%= f.hidden_field :user_id %>
-    <%= f.hidden_field :post_id %>
-    <%= f.submit "Submit" %>
+    <%= c.text_area :content %>
+    <%= c.hidden_field :post_id %>
+    <%= c.submit "Submit Comment" %>
 <% end %>
+<br>
+</section>
 
-<% unless @comments.empty? %>
 
-            <h3><%= @post.title %> Comments:</h3>
 
-            <ul>
-            <% @comments.each do |c| %>
-                <li><%= format_c_date c %>: <%= link_to c.user.name, user_path(c.user) %></li>
-            <% end %>
-            </ul> 
-<% end %>
 
 
 

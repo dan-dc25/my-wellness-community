@@ -1,26 +1,19 @@
-<% if current_user && !@recipes.nil?%>
-<h2><%= current_user.name %>'s recipes </h2>
 
+<% if user_signed_in? && !@recipe.nil? %>
+
+<h2><%= current_user.name %>'s recipes </h2>
   <% current_user.recipes.each do |r| %>
-    <div class="recipe">
         <ul>
           <p>
-            <li><%= link_to r.name, recipe_path(r.id) %></li> | By: <%= r.user.name %>
+            <li><%= link_to r.name, recipe_path(@recipe.user_id) %></li> | By: <%= r.user.name %>
           </p>
         </ul>
-    </div>
   <% end %>
 
 
-<% elsif current_user.recipes.nil? %>
-    <h2>It looks like you have not created any recipes yet. Please click the New Recipe on the menu bar.</h2>
-    
 <% else %>
-    <%= @recipes.each do |r| %>
-        <ul>
-            <p>
-            <li><%= link_to r.name, recipe_path(:id) %></li> | By: <%= r.user.name %>
-            </p>
-        </ul>
-    <% end %>
+      <h2>It looks like you have not posted any recipes yet. Please click the New Recipe on the menu bar.</h2>
 <% end %>
+
+
+
