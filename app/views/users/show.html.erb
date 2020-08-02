@@ -3,9 +3,9 @@
 <% unless @posts.empty? %>
     <h3>Posts Published by <%= @user.name %>:</h3>
     <ul>
-    <%= @user.posts.each do |p| %>
-        <li><%= link_to p.title, post_path(p) %></li>
-    <% end %>
+        <%= @user.posts.each do |p| %>
+            <li><%= link_to p.title, post_path(p) %></li>
+        <% end %>
     </ul>
 <% end %>
 

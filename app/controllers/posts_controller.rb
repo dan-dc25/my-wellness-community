@@ -31,6 +31,7 @@ class PostsController < ApplicationController
         @user = User.find_by(id: params[:id])
         @post = Post.find_by(id: params[:id])
         @comment = Comment.new
+        @comment.post_id = @post.id
             #redirect_to post_path
      end
 

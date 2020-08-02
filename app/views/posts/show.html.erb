@@ -1,6 +1,6 @@
 <h2>Welcome <%= current_user.name %></h2>
 
-<% if current_user %>
+<% if @post.user_id %>
     <strong><%= link_to "Edit Post", edit_post_path(@post.id) %></strong> 
     <br><br>
 <% end %>
@@ -9,13 +9,12 @@
 
 <strong>Content: </strong><%= @post.content %>
 
-<section class="content">
+<h3>Comments (<%= @post.comments.size %>)</h3>
+<%= render partial: 'posts/comment', collection: @post.comments.reverse %>
+
+<section class="comment">
 <h3>Leave a comment:</h3>
-<%= form_for(@comment) do |c| %>
-    <%= c.text_area :content %>
-    <%= c.hidden_field :post_id %>
-    <%= c.submit "Submit Comment" %>
-<% end %>
+<%= render partial: 'comments/form' %>
 <br>
 </section>
 

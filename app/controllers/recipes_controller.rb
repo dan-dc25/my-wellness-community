@@ -6,7 +6,7 @@ class RecipesController < ApplicationController
     end
 
     def new
-       @recipe = Recipe.new
+       @recipe = Recipe.new(params[:user_id])
     end
  
     def create

@@ -6,8 +6,7 @@ class User < ApplicationRecord
     validates :password, length: { in: 6..20} 
     has_many :posts, dependent: :destroy
     has_many :recipes
-    has_many :comments
-    has_many :commented_posts, through: :comments, source: :post
+    has_many :comments, through: :posts
 
     # Include default devise modules. Others available are:
     # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable

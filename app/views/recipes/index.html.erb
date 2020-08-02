@@ -2,12 +2,14 @@
 <% if user_signed_in? %>
 
 <h2><%= current_user.name %>'s recipes </h2>
-  <% current_user.recipes.each do |r| %>
+  <% @recipes.each do |r| %>
+    <div class="recipe">
         <ul>
           <p>
-            <li><%= link_to r.name, recipe_path(r.id) %></li> | By: <%= r.user.name %>
+            <li><%= link_to r.name, recipe_path(r.id) %></li> | By: <%= link_to r.user.name, user_path(r.user.id) %>
           </p>
         </ul>
+    </div>
   <% end %>
 
 
