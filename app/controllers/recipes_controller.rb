@@ -1,8 +1,11 @@
 class RecipesController < ApplicationController
     before_action :authenticate_user!
     def index
-        @recipes = Recipe.all.order("created_at DESC")
-        #@recipes = current_user.recipes.all
+        #if @user == current_user
+            @recipes = current_user.recipes.all
+        #else
+            #@recipes = Recipe.all
+        #end
     end
 
     def new
@@ -48,6 +51,6 @@ class RecipesController < ApplicationController
 
     private
     def recipe_params
-        params.require(:recipe).permit(:name, :ingredients, :instructions, :cook_time, :user_id)
+        params.require(:recipe).permit(:ingredients, :name, :instructions, :cook_time, :user_id)
     end
 end

@@ -1,21 +1,11 @@
-
 <% if user_signed_in? %>
 
-<h2><%= current_user.name %>'s recipes </h2>
+<h2><%= current_user.name %></h2>
   <% @recipes.each do |r| %>
-    <div class="recipe">
-        <ul>
-          <p>
-            <li><%= link_to r.name, recipe_path(r.id) %></li> | By: <%= link_to r.user.name, user_path(r.user.id) %>
-          </p>
-        </ul>
-    </div>
+    <ul>
+      <p>
+        <li><%= link_to r.name, recipe_path(r.id) %></li> | By: <%= link_to r.user.name, user_path(r.user.id) %>
+      </p>
+    </ul>
   <% end %>
-
-
-<% else %>
-      <h2>It looks like you have not posted any recipes yet. Please click the New Recipe on the menu bar.</h2>
 <% end %>
-
-
-

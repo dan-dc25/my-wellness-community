@@ -8,10 +8,10 @@
 
 
 
-<strong>Name: </strong><%= @recipe.name %><br />
+<strong>Name: </strong><%= @recipe.name %> | By: <%= link_to @recipe.user.name, user_path(@recipe.user) %><br /><br />
 <strong>Ingredients: </strong><%= @recipe.ingredients %><br />
 <strong>Instructions: </strong><%= @recipe.instructions %><br />
 <strong>Cook Time: </strong><%= @recipe.cook_time %><br />
 
 
-By:<%= current_user.name %>
+

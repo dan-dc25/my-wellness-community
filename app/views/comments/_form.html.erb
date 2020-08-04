@@ -1,6 +1,7 @@
 <h1>Add a comment</h1>
 <%= form_for(@comment) do |f| %>
-    <%= f.text_area :content %>
+    Name: <%= f.text_field :user_name %><br /><br />
+   Comment: <%= f.text_area :content %>
     <%= f.hidden_field :post_id %>
     <%= f.submit "Submit" %>
 <% end %>
