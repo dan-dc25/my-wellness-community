@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   root 'application#home'
   resources :users, only: [:show]
  
-  resources :posts
+  resources :posts do
+    resources :comments
+  end
   resources :recipes
   resources :comments, only: [:create, :destroy]
   

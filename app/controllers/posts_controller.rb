@@ -4,7 +4,6 @@ class PostsController < ApplicationController
     #GET /posts
     def index
         @posts = Post.all.order("created_at DESC")
-        #@posts = current_user.posts.all
     end
 
      #GET /posts/new

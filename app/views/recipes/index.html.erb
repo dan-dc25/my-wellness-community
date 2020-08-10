@@ -1,11 +1,11 @@
-<% if user_signed_in? %>
 
-<h2><%= current_user.name %></h2>
-  <% @recipes.each do |r| %>
+<h2>Welcome <%= current_user.name %></h2>
+<h3>Here's a list of all recipes: </h3><br />
+  <% @recipes.each do |recipe| %>
     <ul>
       <p>
-        <li><%= link_to r.name, recipe_path(r.id) %></li> | By: <%= link_to r.user.name, user_path(r.user.id) %>
+        <li><%= link_to recipe.name, recipe_path(recipe.id) %>
       </p>
     </ul>
   <% end %>
-<% end %>
+

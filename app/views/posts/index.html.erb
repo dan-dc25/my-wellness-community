@@ -1,7 +1,5 @@
 
 
-<% if user_signed_in?%>
-
 <h2><%= current_user.name %></h2>
   <% @posts.each do |p| %>
     <div class="post">
@@ -13,6 +11,4 @@
     </div>
   <% end %>
 
-
-<% end %>
 

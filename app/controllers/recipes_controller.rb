@@ -1,15 +1,11 @@
 class RecipesController < ApplicationController
     before_action :authenticate_user!
     def index
-        #if @user == current_user
-            @recipes = current_user.recipes.all
-        #else
-            #@recipes = Recipe.all
-        #end
+        @recipes = Recipe.all.order("created_at DESC")
     end
 
     def new
-       @recipe = Recipe.new(params[:user_id])
+       @recipe = Recipe.new
     end
  
     def create
@@ -19,7 +15,7 @@ class RecipesController < ApplicationController
             @recipe.save
             redirect_to recipe_path(@recipe)
         else
-            flash[:errors] = "Could not save recipe. Try again."
+            flash[:errors] = @recipe.errors.full_messages
             render :new
         end
     end
@@ -37,7 +33,7 @@ class RecipesController < ApplicationController
         @recipe = Recipe.find(params[:id])
         if @recipe.update_attributes(recipe_params)
             redirect_to recipes_path(@recipe)
-            flash[:notice] = 'post was updated.'
+            flash[:notice] = 'recipe was updated.'
         else
             render :edit
         end
