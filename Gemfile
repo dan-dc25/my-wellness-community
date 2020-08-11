@@ -31,8 +31,8 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'pry'
 
 gem 'jquery-rails'
-gem 'bootstrap', '~> 4.5.0'
 gem 'autoprefixer-rails'
+gem 'bootstrap-sass'
 
 
 

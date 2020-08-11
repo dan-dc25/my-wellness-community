@@ -1,6 +1,7 @@
 
 
-<h2><%= current_user.name %></h2>
+<h2>Welcome <%= current_user.name %>.</h2>
+<h3>Here is a list of all posts: </h3>
   <% @posts.each do |p| %>
     <div class="post">
         <ul>
